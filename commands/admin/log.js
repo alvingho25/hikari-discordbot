@@ -9,8 +9,8 @@ module.exports = class LogCommand extends Command{
             aliases : [],
             group : 'admin',
             memberName : 'log',
-            description : `Set Log Channel. Log channel will be used if bot are banning new member with discord link on their name or \n` 
-            `member are promoting discord link on channel \n`
+            description : `Set Log Channel. Log channel will be used if bot are banning new member with discord link on their name or \n` +
+            `member are promoting discord link on channel \n` +
             `More features comming soon`,
             examples : [client.commandPrefix + 'log', client.commandPrefix + 'log #channel'],
             guildOnly: true,
