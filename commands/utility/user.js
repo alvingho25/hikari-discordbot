@@ -30,6 +30,7 @@ module.exports = class UserCommand extends Command{
     }
 
     run(message, {user}){
+        let tz = this.client.provider.get(message.guild.id, "timezone", "Etc/GMT");
         let member;
         if(user == ''){
             member = message.member;   
@@ -38,15 +39,11 @@ module.exports = class UserCommand extends Command{
             member = message.guild.members.get(user.id);
         }
         let now = member.user.createdAt;
-        let tanggal = moment.tz(now,"Asia/Jakarta").locale('id').format("dddd, DD MMMM YYYY");
-        let jam = moment.tz(now,"Asia/Jakarta").locale('id').format("HH:mm:ss");
-        let teks = tanggal + " jam " + jam;
+        let created = moment.tz(now,tz).format("LLLL");
 
 
         now = member.joinedAt;
-        tanggal = moment.tz(now,"Asia/Jakarta").locale('id').format("dddd, DD MMMM YYYY");
-        jam = moment.tz(now,"Asia/Jakarta").locale('id').format("HH:mm:ss");
-        let join = tanggal + " jam " + jam;
+        let join = moment.tz(now,tz).format("LLLL");
 
         let role = "";
         let roles = member.roles; 
@@ -63,11 +60,11 @@ module.exports = class UserCommand extends Command{
             .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
             .setThumbnail(`${member.user.displayAvatarURL}`)
             .setTimestamp()
-            .addField("Nickname Server",
+            .addField("Server Nickname",
             `${member.displayName}`, true)
-            .addField("Akun Dibuat",
-            `${teks}`, false)
-            .addField("Waktu Join",
+            .addField("Account Created",
+            `${created}`, false)
+            .addField("Time Join",
             `${join}`, false)
             .addField("Roles",
             `${role}`, false);

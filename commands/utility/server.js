@@ -27,15 +27,12 @@ module.exports = class ServerCommand extends Command{
     }
 
     run(message){
+        let tz = this.client.provider.get(message.guild.id, "timezone", "Etc/GMT");
         let now = message.guild.createdAt;
-        let tanggal = moment.tz(now,"Asia/Jakarta").locale('id').format("dddd, DD MMMM YYYY");
-        let jam = moment.tz(now,"Asia/Jakarta").locale('id').format("HH:mm:ss");
-        let teks = tanggal + " jam " + jam;
+        let created = moment.tz(now,tz).format("LLLL");
 
         now = message.member.joinedAt;
-        tanggal = moment.tz(now,"Asia/Jakarta").locale('id').format("dddd, DD MMMM YYYY");
-        jam = moment.tz(now,"Asia/Jakarta").locale('id').format("HH:mm:ss");
-        let join = tanggal + " jam " + jam;
+        let join = moment.tz(now,tz).format("LLLL");
         
         let verifikasi = verifLevel[message.guild.verificationLevel]
         const embed = new RichEmbed()
@@ -49,13 +46,13 @@ module.exports = class ServerCommand extends Command{
             `${verifikasi}`, true)
             .addField("Region",
             `${message.guild.region}`, true)
-            .addField("Member",
-            `${message.guild.memberCount} orang`, true)
+            .addField("Member Count",
+            `${message.guild.memberCount} Member`, true)
             .addField("Owner Server",
             `${message.guild.owner.user.tag}`, true)
-            .addField("Server Dibuat",
-            `${teks}`, false)
-            .addField("Waktu Join",
+            .addField("Server Created",
+            `${created}`, false)
+            .addField("Time Join",
             `${join}`, false);
     
         return message.say(embed);
