@@ -85,10 +85,15 @@ function getWinner(client, message, user, winner, maker, present,channel){
         .setTitle(`Giveaway Ended`)
         .setAuthor(`${maker.user.tag}`, `${maker.user.displayAvatarURL}`)
         .setColor(0x00AE86)
-        .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
         .setTimestamp()
         .setDescription(`Unfortunately entry for this giveaway is not enough to get winner\n`+
         `Thank you for all member that has join the giveaway, good luck on the next giveaway`)
+        if(!message.guild.iconURL){
+            embed.setFooter(`© ${message.guild.name} Discord Server`)
+        }
+        else{
+            embed.setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
+        }
         channel.send(embed).catch(console.error);
     }
     else{
@@ -101,7 +106,6 @@ function getWinner(client, message, user, winner, maker, present,channel){
             .setTitle(`Giveaway Ended`)
             .setAuthor(`${maker.user.tag}`, `${maker.user.displayAvatarURL}`)
             .setColor(0x00AE86)
-            .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
             .setTimestamp()
             .setDescription(`Thank you for all member that has join the giveaway\n` + 
             `Winner can contact ${maker.displayName} to claim your prize\n` + 
@@ -110,6 +114,12 @@ function getWinner(client, message, user, winner, maker, present,channel){
             `${present}`)
             .addField("Pemenang",
             pemenang, true);
+            if(!message.guild.iconURL){
+                embed.setFooter(`© ${message.guild.name} Discord Server`)
+            }
+            else{
+                embed.setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
+            }
             channel.send(embed).catch(console.error);
             member.send(`🎉🎉🎉 **Congratulations** 🎉🎉🎉 \n` +
             `You win **${present}** from giveaway on ${member.guild}, Contact ${maker.displayName} to claim your prize`);
@@ -131,7 +141,6 @@ function getWinner(client, message, user, winner, maker, present,channel){
             .setTitle(`Giveaway Ended`)
             .setAuthor(`${maker.user.tag}`, `${maker.user.displayAvatarURL}`)
             .setColor(0x00AE86)
-            .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
             .setTimestamp()
             .setDescription(`Thank you for all member that has join the giveaway\n` + 
             `Winner can contact ${maker.displayName} to claim your prize\n` + 
@@ -140,6 +149,12 @@ function getWinner(client, message, user, winner, maker, present,channel){
             `${present}`)
             .addField("Pemenang",
             pemenang, true);
+            if(!message.guild.iconURL){
+                embed.setFooter(`© ${message.guild.name} Discord Server`)
+            }
+            else{
+                embed.setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
+            }
             channel.send(embed).catch(console.error);
         }
     }

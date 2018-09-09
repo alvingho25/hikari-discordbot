@@ -55,11 +55,7 @@ function setCommand(guildID, command, respond, description){
     return new Promise(function (resolve, reject) {
         let db = new sqlite3.Database('./huolong.db', (err) => {
             if(err){
-                console.log(err);
                 reject(err);
-            }
-            else{
-                console.log("Connected to huolong database");
             }
         })
         db.serialize( () => {
@@ -69,32 +65,24 @@ function setCommand(guildID, command, respond, description){
                 respond TEXT,
                 description TEXT)`, (err) => {
                     if(err){
-                        console.log(err)
                         reject(err)
                     }
-                    console.log("Successfully create table command")
                 })
 
             .run(`INSERT INTO command(guildID, command, respond, description) VALUES(?,?,?,?)`,
             [`${guildID}`,`${command}`, `${respond}`, `${description}`], 
                 (err) => {
                     if(err){
-                        console.log(err)
                         reject(err)
                     }
                     else{
-                        console.log("Successfully insert table command")
                         resolve();
                     }
             })
 
             .close((err) => {
                 if (err) {
-                    console.log(err);
                     reject(err);
-                }
-                else{
-                    console.log("Succesfully close database huolong");
                 }
             })
         })

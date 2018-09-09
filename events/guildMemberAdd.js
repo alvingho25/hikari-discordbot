@@ -1,5 +1,3 @@
-const Jimp = require("jimp");
-
 module.exports = (client, member) => {
     if(member.user.username.includes("discord.gg/")){
         member.ban("Username contains discord link possible spam").catch(console.error);
@@ -16,14 +14,15 @@ module.exports = (client, member) => {
         let text = client.provider.get(member.guild.id, "welcome_message", null);
         if(channel != null && text != null){
             channel = client.channels.get(channel);
-            if(text.includes("${USER")){
-                text.replace("${USER}", member.user);
+            if(text.includes("${USER}")){
+                text = text.replace("${USER}", `${member.user}`);
+                console.log(text);
             }
-            if(text.includes("${GUILD")){
-                text.replace("${GUILD}", member.guild);
+            if(text.includes("${GUILD}")){
+                text = text.replace("${GUILD}", `${member.guild}`);
             }
-            if(text.includes("${COUNT")){
-                text.replace("${COUNT}", member.guild.memberCount);
+            if(text.includes("${COUNT}")){
+                text = text.replace("${COUNT}", `${member.guild.memberCount}`);
             }
             channel.send(`${text}`)
         }

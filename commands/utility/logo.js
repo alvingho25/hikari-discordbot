@@ -20,6 +20,11 @@ module.exports = class LogoCommand extends Command{
     }
 
     run(message){
-        return message.say(message.guild.iconURL);
+        if(!message.guild.iconURL){
+            return message.say(`this guild don't have a logo`);
+        }
+        else{
+            return message.say(message.guild.iconURL);
+        }
     }
 }

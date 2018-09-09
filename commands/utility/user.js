@@ -68,6 +68,12 @@ module.exports = class UserCommand extends Command{
             `${join}`, false)
             .addField("Roles",
             `${role}`, false);
+            if(!message.guild.iconURL){
+                embed.setFooter(`© ${message.guild.name} Discord Server`)
+            }
+            else{
+                embed.setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
+            }
 
         return message.say(embed);
     }

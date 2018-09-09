@@ -24,14 +24,20 @@ module.exports = class CustomCommand extends Command{
     run(message){
         getCommand(message.guild.id).then( row => {
             let embed = new RichEmbed()
-            .setAuthor(message.guild, message.guild.iconURL)
             .setColor(0x00AE86)
             .setDescription(`Custom Command for ${message.guild}`)
-            .setFooter(`© ${message.guild} Discord Server`, message.guild.iconURL)
             .setTimestamp();
             row.forEach(element => {
                 embed.addField(this.client.commandPrefix+`${element.command}`,`${element.description}`);
             });
+            if(!message.guild.iconURL){
+                embed.setAuthor(`${message.guild.name}`)
+                .setFooter(`© ${message.guild.name} Discord Server`)
+            }
+            else{
+                embed.setAuthor(`${message.guild.name}`, `${message.guild.iconURL}`)
+                .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
+            }
             return message.embed(embed);
         }).catch( (err) => {
             return message.say(err.message);

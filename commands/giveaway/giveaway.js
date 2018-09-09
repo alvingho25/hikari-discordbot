@@ -199,7 +199,6 @@ function sendGiveaway(client, message, member, waktu, durasi, winner, present, t
         .setDescription(`React this message with 🎉 only to join the giveaway\n` + 
         `User with roles ${role.name} can join the giveaway\n`+
         `Good Luck`)
-        .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
         .setTimestamp()
         .addField("Sponsored",
         `${member.user.tag}`,true)
@@ -211,6 +210,12 @@ function sendGiveaway(client, message, member, waktu, durasi, winner, present, t
         `${durasi}`,false)
         .addField("End",
         `${tanggal}`,false);
+        if(!message.guild.iconURL){
+            embed.setFooter(`© ${message.guild.name} Discord Server`)
+        }
+        else{
+            embed.setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
+        }
     channel.send(`${role}`).catch(console.error);
     channel.send(embed)
     .then(newMessage => {
@@ -282,10 +287,15 @@ function getWinner(client, message, user, winner, guild, member, present, channe
         .setTitle(`Giveaway Ended`)
         .setAuthor(`${member.user.tag}`, `${member.user.displayAvatarURL}`)
         .setColor(0x00AE86)
-        .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
         .setTimestamp()
         .setDescription(`Unfortunately entry for this giveaway is not enough to get winner\n`+
         `Thank you for all member that has join the giveaway, good luck on the next giveaway`)
+        if(!message.guild.iconURL){
+            embed.setFooter(`© ${message.guild.name} Discord Server`)
+        }
+        else{
+            embed.setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
+        }
         channel.send(embed).catch(console.error);
     }
     else{
@@ -298,7 +308,6 @@ function getWinner(client, message, user, winner, guild, member, present, channe
             .setTitle(`Giveaway Ended`)
             .setAuthor(`${member.user.tag}`, `${member.user.displayAvatarURL}`)
             .setColor(0x00AE86)
-            .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
             .setTimestamp()
             .setDescription(`Thank you for all member that has join the giveaway\n` + 
             `Winner can contact ${member.displayName} to claim your prize\n` + 
@@ -307,6 +316,12 @@ function getWinner(client, message, user, winner, guild, member, present, channe
             `${present}`)
             .addField("Pemenang",
             pemenang, true);
+            if(!message.guild.iconURL){
+                embed.setFooter(`© ${message.guild.name} Discord Server`)
+            }
+            else{
+                embed.setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
+            }
             channel.send(embed).catch(console.error);
             member.send(`🎉🎉🎉 **Congratulations** 🎉🎉🎉 \n` +
             `You win **${present}** from giveaway on ${member.guild}, Contact ${author.displayName} to claim your prize`);
@@ -328,7 +343,6 @@ function getWinner(client, message, user, winner, guild, member, present, channe
             .setTitle(`Giveaway Ended`)
             .setAuthor(`${member.user.tag}`, `${member.user.displayAvatarURL}`)
             .setColor(0x00AE86)
-            .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
             .setTimestamp()
             .setDescription(`Thank you for all member that has join the giveaway\n` + 
             `Winner can contact ${member.displayName} to claim your prize\n` + 
@@ -337,6 +351,12 @@ function getWinner(client, message, user, winner, guild, member, present, channe
             `${present}`)
             .addField("Pemenang",
             pemenang, true);
+            if(!message.guild.iconURL){
+                embed.setFooter(`© ${message.guild.name} Discord Server`)
+            }
+            else{
+                embed.setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
+            }
             channel.send(embed).catch(console.error);
         }
     }

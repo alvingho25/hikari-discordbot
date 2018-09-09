@@ -37,10 +37,7 @@ module.exports = class ServerCommand extends Command{
         let verifikasi = verifLevel[message.guild.verificationLevel]
         const embed = new RichEmbed()
             .setTitle(`ID : ${message.guild.id}`)
-            .setAuthor(`${message.guild.name}`, `${message.guild.iconURL}`)
             .setColor(0x00AE86)
-            .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
-            .setThumbnail(`${message.guild.iconURL}`)
             .setTimestamp()
             .addField("Verification Level",
             `${verifikasi}`, true)
@@ -54,6 +51,15 @@ module.exports = class ServerCommand extends Command{
             `${created}`, false)
             .addField("Time Join",
             `${join}`, false);
+            if(!message.guild.iconURL){
+                embed.setAuthor(`${message.guild.name}`)
+                .setFooter(`© ${message.guild.name} Discord Server`)
+            }
+            else{
+                embed.setAuthor(`${message.guild.name}`, `${message.guild.iconURL}`)
+                .setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
+                .setThumbnail(`${message.guild.iconURL}`)
+            }
     
         return message.say(embed);
     }
