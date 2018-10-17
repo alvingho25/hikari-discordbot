@@ -1,6 +1,4 @@
 const { Command } = require('discord.js-commando');
-const fs = require("fs");
-const moment = require('moment-timezone');
 
 module.exports = class LogCommand extends Command{
     constructor(client){

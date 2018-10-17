@@ -27,9 +27,14 @@ module.exports = class CustomCommand extends Command{
             .setColor(0x00AE86)
             .setDescription(`Custom Command for ${message.guild}`)
             .setTimestamp();
-            row.forEach(element => {
-                embed.addField(this.client.commandPrefix+`${element.command}`,`${element.description}`);
-            });
+            if(row.length == 0){
+                embed.addField(`No Custom command`, `There is no custom command set for this server`);
+            }
+            else{
+                row.forEach(element => {
+                    embed.addField(this.client.commandPrefix+`${element.command}`,`${element.description}`);
+                });
+            }
             if(!message.guild.iconURL){
                 embed.setAuthor(`${message.guild.name}`)
                 .setFooter(`© ${message.guild.name} Discord Server`)

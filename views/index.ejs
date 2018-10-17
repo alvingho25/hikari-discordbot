@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HuoLong Discord Bot</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+    <body>
+        <nav class="navbar navbar-expand-sm bg-light navbar-light">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#invite">Invite</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#command">Command</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#support">Support</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="container-fluid">
+            <div class="row" id="invite" style="margin-top:20px">
+                <a href="https://discordapp.com/oauth2/authorize?&client_id=444432423036649483&scope=bot&permissions=8" target="_blank" class="btn-lg btn-primary mx-auto" role="button">Invite Me</a>
+            </div>
+            <div class="card" style="margin-top: 20px" id="command">
+                <div class="card-header">
+                    <h2 class="text-center">Command List</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Command</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Alias</th>
+                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>cmd-add</td>
+                                    <td>Add custom command to your server</td>
+                                    <td>cmdadd, addcmd</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>cmd-rm</td>
+                                    <td>Remove Custom command from your server</td>
+                                    <td>rmcmd,removecmd</td>
+                                </tr>
+                            </tbody>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row" id="support" style="margin-top:20px; margin-bottom:20px">
+                <a href="discord.gg/eNQQbmq" target="_blank" class="btn-lg btn-info mx-auto" role="button">Support Server</a>
+            </div>
+        </div>
+    </body>
+</html>

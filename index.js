@@ -46,7 +46,6 @@ app.use(express.static('public'));
 app.get("/", (request, response) => {
     let guilds = client.guilds;
     guilds.forEach(element => {
-        console.log(element.id);
     });
     response.render('index',{
         guilds : guilds
