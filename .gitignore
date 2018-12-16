@@ -1,6 +1,4 @@
 node_modules/
 .env
-say.js
-emit.js
 huolong.db
 settings.sqlite3

@@ -1,4 +1,3 @@
-//const Discord = require('discord.js');
 require('dotenv').load();
 const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
 const path = require('path');
@@ -13,7 +12,7 @@ const client = new CommandoClient({
     commandPrefix : process.env.PREFIX,
     owner : process.env.OWNERID,
     unknownCommandResponse: false,
-    invite : 'discord.gg/eNQQbmq'
+    invite : process.env.INVITE
 });
 
 fs.readdir("./events/", (err, files) => {

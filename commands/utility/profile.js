@@ -1,4 +1,4 @@
-const { Command } = require('discord.js-commando');
+const { Command } = require('discord.js-commando')
 
 module.exports = class ProfileCommand extends Command{
     constructor(client){
@@ -10,8 +10,6 @@ module.exports = class ProfileCommand extends Command{
             description : 'Get the image of my profile picture or other user',
             examples : [client.commandPrefix + 'profile', client.commandPrefix + 'profile @user'],
             guildOnly: true,
-            //clientPermissions: ['MANAGE_MESSAGES'],
-            //userPermissions: ['MANAGE_MESSAGES'],
             throttling : {
                 usages : 1,
                 duration : 5
@@ -19,7 +17,7 @@ module.exports = class ProfileCommand extends Command{
             args:[
                 {
                     key:'user',
-                    prompt : 'which user do you want to get ?',
+                    prompt : 'whose profile do you want to get?',
                     type : 'user',
                     default: '',
                 }

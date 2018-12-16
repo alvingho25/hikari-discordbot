@@ -76,7 +76,7 @@ function addfontselamatdatang(banner){
             let wordwidth = measureText(font, word)
             let width = wordwidth/2;
             let number = bannerwidth - width;
-            banner.print(font, number, 296, word)
+            banner.print(font, number, 290, word)
             resolve(banner);
         })
         .catch(err => {
@@ -93,7 +93,7 @@ function addfonttag(banner, member){
             let wordwidth = measureText(font, word)
             let width = wordwidth/2;
             let number = bannerwidth - width;
-            banner.print(font, number, 362, word)
+            banner.print(font, number, 356, word)
             // word =  member.guild.name;
             // wordwidth = measureText(font, word)
             // width = wordwidth/2;
