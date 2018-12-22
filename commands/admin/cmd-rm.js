@@ -16,47 +16,27 @@ module.exports = class CmdrmCommand extends Command{
             throttling : {
                 usages : 1,
                 duration : 5
-            }
+            },
+            args:
+            [
+                {
+                    key:'command',
+                    prompt : 'what command do you want do delete?',
+                    type : 'string',
+                    wait : 120
+                }
+            ]
         });
     }
 
-    run(message){
-        let command
+    run(message, {command}){
         let guildID = message.guild.id;
         deleteCommand(guildID, command).then(() => {
-            return message.say(`Command ${command} berhasil dihapus`);
+            return message.say(`Command ${command} successfully deleted`);
         }).catch(err => {
             return message.say(err.message);
         })
     }
-}
-
-function getCommand(message){
-    return new Promise((resolve, reject) => {
-        message.channel.send(`Apa nama command yang mau dihapus ??\n`+
-        `Tidak perlu memasukkan prefix karena tidak termasuk dalam nama commad\n`+
-        `Respon batal untuk membatalkan command ini. Command ini akan otomatis dibatalkan setelah 180 detik.`).then(m => {
-            message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 180000, errors: ['time'] })
-            .then(collected => {
-                let answer = collected.first();
-                let command = answer.content;
-                if(command.toLowerCase() == 'batal'){
-                    return message.channel.send(`Command dibatalkan`)
-                }
-                else{
-                    m.delete();
-                    answer.delete();
-                    resolve(command);
-                }
-            })
-            .catch( collected => {
-                return message.channel.send(`Command dibatalkan`)
-            });
-        })
-    })
-    .catch(err=> {
-        reject(err);
-    });
 }
 
 function deleteCommand(guildID, command){

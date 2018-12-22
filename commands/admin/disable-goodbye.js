@@ -4,13 +4,11 @@ module.exports = class DisableGoodbyeCommand extends Command{
     constructor(client){
         super(client, {
             name : 'disable-goodbye',
-            //aliases : [],
             group : 'admin',
             memberName : 'disable-goodbye',
             description : 'disable goodbye message',
             examples : [client.commandPrefix + 'disable-goodbye'],
             guildOnly: true,
-            //clientPermissions: ['MANAGE_MESSAGES'],
             userPermissions: ['MANAGE_GUILD'],
             throttling : {
                 usages : 1,
@@ -22,7 +20,6 @@ module.exports = class DisableGoodbyeCommand extends Command{
                     key:'text',
                     prompt : 'Do you want to disable goodbye message ? (Y/N)',
                     type : 'string',
-                    //default: ''
                 }
             ]
         });

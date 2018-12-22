@@ -4,13 +4,11 @@ module.exports = class DisableWelcomeCommand extends Command{
     constructor(client){
         super(client, {
             name : 'disable-welcome',
-            //aliases : [],
             group : 'admin',
             memberName : 'disable-welcome',
             description : 'disable welcome message',
             examples : [client.commandPrefix + 'disable-welcome'],
             guildOnly: true,
-            //clientPermissions: ['MANAGE_MESSAGES'],
             userPermissions: ['MANAGE_GUILD'],
             throttling : {
                 usages : 1,
@@ -22,7 +20,6 @@ module.exports = class DisableWelcomeCommand extends Command{
                     key:'text',
                     prompt : 'Do you want to disable welcome message ? (Y/N)',
                     type : 'string',
-                    //default: ''
                 }
             ]
         });

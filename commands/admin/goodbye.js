@@ -10,7 +10,6 @@ module.exports = class GoodbyeCommand extends Command{
             description : 'set channel and message for leaving member',
             examples : [client.commandPrefix + 'goodbye'],
             guildOnly: true,
-            //clientPermissions: ['MANAGE_MESSAGES'],
             userPermissions: ['MANAGE_GUILD'],
             throttling : {
                 usages : 1,
