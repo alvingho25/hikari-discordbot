@@ -22,7 +22,7 @@ module.exports = class UserCommand extends Command{
                 {
                     key:'user',
                     prompt : 'which user do you want to get ?',
-                    type : 'user',
+                    type : 'member',
                     default: ''
                 }
             ]
@@ -36,7 +36,7 @@ module.exports = class UserCommand extends Command{
             member = message.member;   
         }
         else{
-            member = message.guild.members.get(user.id);
+            member = user;
         }
         let now = member.user.createdAt;
         let created = moment.tz(now,tz).format("LLLL");
@@ -47,11 +47,16 @@ module.exports = class UserCommand extends Command{
 
         let role = "";
         let roles = member.roles; 
-        roles.forEach(element => {
+        if (roles.length > 1){
+          roles.forEach(element => {
             if(element.name != "@everyone"){
-                role = role + element.name + ` \n`;
+              role = role + element.name + ` \n`;
             }
-        });
+          }); 
+        }
+        else{
+          role = "-"; 
+        }
 
         const embed = new RichEmbed()
             .setTitle(`ID : ${member.id}`)

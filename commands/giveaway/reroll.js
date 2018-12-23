@@ -98,6 +98,7 @@ function getWinner(client, message, user, winner, maker, present,channel){
     }
     else{
         if(winner == 1){
+            var guild = message.guild
             let rand = user[Math.floor(Math.random() * user.length)];
             let member = guild.members.get(rand);
             
@@ -128,6 +129,7 @@ function getWinner(client, message, user, winner, maker, present,channel){
             let pemenang = "";
             let i = 0;
             while(i < winner){
+                var guild = message.guild
                 let rand = user[Math.floor(Math.random() * user.length)];
                 let member = guild.members.get(rand);
                 pemenang = pemenang + `${member} \n`;

@@ -130,13 +130,13 @@ module.exports = class GiveawayCommand extends Command{
 }
 
 function dhm(ms){
-    days = Math.floor(ms / (24*60*60*1000));
-    daysms=ms % (24*60*60*1000);
-    hours = Math.floor((daysms)/(60*60*1000));
-    hoursms=ms % (60*60*1000);
-    minutes = Math.floor((hoursms)/(60*1000));
-    minutesms=ms % (60*1000);
-    sec = Math.floor((minutesms)/(1000));
+    var days = Math.floor(ms / (24*60*60*1000));
+    var daysms=ms % (24*60*60*1000);
+    var hours = Math.floor((daysms)/(60*60*1000));
+    var hoursms=ms % (60*60*1000);
+    var minutes = Math.floor((hoursms)/(60*1000));
+    var minutesms=ms % (60*1000);
+    var sec = Math.floor((minutesms)/(1000));
     return days+" days "+hours+" hours "+minutes+" minutes";
 }
 
@@ -183,9 +183,6 @@ function confirmGa(client, message, author, waktu, durasi, winner, present, chan
             console.log(err);
             reject(err)
         })
-    }).catch(err => {
-        console.log(err);
-        reject(err)
     })
 }
 
@@ -216,76 +213,76 @@ function sendGiveaway(client, message, member, waktu, durasi, winner, present, t
         else{
             embed.setFooter(`© ${message.guild.name} Discord Server`, `${message.guild.iconURL}`)
         }
-    channel.send(`${role}`).catch(console.error);
-    channel.send(embed)
-    .then(newMessage => {
-        newMessage.react('🎉');
-        let db = new sqlite3.Database('./huolong.db', (err) => {
-            if(err){
-                console.error;
-            }
-            else{
-                console.log("Connected to giveaway database");
-            }
-        })
-        db.serialize( () => {
-            db.run(`CREATE TABLE IF NOT EXISTS giveaway (
-                messageID TEXT,
-                sponsorID TEXT,
-                winner INT,
-                prize TEXT,
-                channelID TEXT,
-                role TEXT)`, (err) => {
-                    if(err){
-                    console.log(err)
-                    }
-                    console.log("Successfully create table giveaway")
+    channel.send(`${role}`).then( () => {
+        channel.send(embed).then(newMessage => {
+            newMessage.react('🎉');
+            let db = new sqlite3.Database('./huolong.db', (err) => {
+                if(err){
+                    console.error;
+                }
+                else{
+                    console.log("Connected to giveaway database");
+                }
+            })
+            db.serialize( () => {
+                db.run(`CREATE TABLE IF NOT EXISTS giveaway (
+                    messageID TEXT,
+                    sponsorID TEXT,
+                    winner INT,
+                    prize TEXT,
+                    channelID TEXT,
+                    role TEXT)`, (err) => {
+                        if(err){
+                        console.log(err)
+                        }
+                        console.log("Successfully create table giveaway")
+                    })
+
+                .run(`INSERT INTO giveaway(messageID, sponsorID, winner, prize, channelID, role) VALUES(?,?,?,?,?,?)`,
+                [`${newMessage.id}`, `${member.id}`, `${winner}`, `${present}`, `${newMessage.channel.id}`, `${role.name}`], 
+                    (err) => {
+                        if(err){
+                            console.log(err)
+                        }
+                        console.log("Successfully insert table giveaway")
                 })
 
-            .run(`INSERT INTO giveaway(messageID, sponsorID, winner, prize, channelID, role) VALUES(?,?,?,?,?,?)`,
-            [`${newMessage.id}`, `${member.id}`, `${winner}`, `${present}`, `${newMessage.channel.id}`, `${role.name}`], 
-                (err) => {
-                    if(err){
-                        console.log(err)
+                .each(`SELECT * FROM giveaway`, (err, row) => {
+                    if (err){
+                        console.log(err);
                     }
-                    console.log("Successfully insert table giveaway")
+                    console.log(row);
+                })
+                .close((err) => {
+                    if (err) {
+                        return console.error(err.message);
+                    }
+                    console.log("Succesfully close database huolong");
+                })
             })
-
-            .each(`SELECT * FROM giveaway`, (err, row) => {
-                if (err){
-                    console.log(err);
-                }
-                console.log(row);
-            })
-            .close((err) => {
-                if (err) {
-                    return console.error(err.message);
-                }
-                console.log("Succesfully close database huolong");
-            })
-        })
         
-        this.client.provider.set(message.guild.id, "giveaway", newMessage.id);
-        newMessage.awaitReactions((m) => m.emoji.name === '🎉' , {time : waktu}).then(
-        collected => {
-            let hasil = collected.get('🎉').users;
-            hasil.forEach(element => {
-                let m = guild.members.get(element.id);
-                if(element.bot == false && element.id != member.id && m.roles.find('name', role)){
-                    //console.log(element.id);
-                    user.push(element.id);
-                }
-            });
-            getWinner(client, message, user, winner, guild, member, present, channel);
+            client.provider.set(message.guild.id, "giveaway", newMessage.id);
+            newMessage.awaitReactions((m) => m.emoji.name === '🎉' , {time : waktu}).then(
+            collected => {
+                let hasil = collected.get('🎉').users;
+                hasil.forEach(element => {
+                    let m = guild.members.get(element.id);
+                    if(element.bot == false && element.id != member.id && m.roles.find('name', role)){
+                        //console.log(element.id);
+                        user.push(element.id);
+                    }
+                });
+                getWinner(client, message, user, winner, guild, member, present, channel);
+            }).catch(console.error)
         }).catch(console.error)
-    }).catch(console.error)
+    }).catch(console.error);
 }
 
-function getWinner(client, message, user, winner, guild, member, present, channel){
+function getWinner(client, message, user, winner, guild, author, present, channel){
     if(user.length < winner){
         let embed = new RichEmbed()
         .setTitle(`Giveaway Ended`)
-        .setAuthor(`${member.user.tag}`, `${member.user.displayAvatarURL}`)
+        .setAuthor(`${author.user.tag}`, `${author.user.displayAvatarURL}`)
         .setColor(0x00AE86)
         .setTimestamp()
         .setDescription(`Unfortunately entry for this giveaway is not enough to get winner\n`+
@@ -341,11 +338,11 @@ function getWinner(client, message, user, winner, guild, member, present, channe
             }
             let embed = new RichEmbed()
             .setTitle(`Giveaway Ended`)
-            .setAuthor(`${member.user.tag}`, `${member.user.displayAvatarURL}`)
+            .setAuthor(`${author.user.tag}`, `${author.user.displayAvatarURL}`)
             .setColor(0x00AE86)
             .setTimestamp()
             .setDescription(`Thank you for all member that has join the giveaway\n` + 
-            `Winner can contact ${member.displayName} to claim your prize\n` + 
+            `Winner can contact ${author.displayName} to claim your prize\n` + 
             `See you in the next giveaway`)
             .addField("Hadiah",
             `${present}`)

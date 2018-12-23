@@ -20,6 +20,6 @@ module.exports = class SupportCommand extends Command{
     }
 
     run(message){   
-        return message.say(`Join the bot support server for help, bug report, development update, feature request on discord.gg/eNQQbmq`);
+        return message.say(`Join the bot support server for help, bug report, development update, feature request on discord.gg/7rFccnP`);
     }
 }

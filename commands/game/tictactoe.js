@@ -78,16 +78,16 @@ module.exports = class TicTacToeCommand extends Command{
 
 function confirm(message, opponent){
     return new Promise((resolve, reject) => {
-        message.channel.send(`${message.member} challenge ${opponent} to game of Tic Tac Toe. Do you accept the challenge? (Yes/No)`).then(m => {
-            message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 180000, errors: ['time'] })
+        message.channel.send(`${opponent}, you are challenged to game of Tic Tac  by ${message.author.displayName}. Do you accept the challenge? (Y/N)`).then(m => {
+            message.channel.awaitMessages(m => m.author.id == opponent.id, { max: 1, time: 60000, errors: ['time'] })
             .then(collected => {
                 let answer = collected.first();
                 let command = answer.content;
-                if(command.toLowerCase() == 'yes'){
+                if(command.toLowerCase() == 'y'){
                     resolve(command);
                 }
-                else if (command.toLowerCase() == 'no'){
-                    return message.say(`${opponent} declined the challenge, ${message.member}`)
+                else if (command.toLowerCase() == 'n'){
+                    return message.say(`${opponent.displayName} declined the challenge, ${message.member}`)
                 }
                 else{
                     reject();
